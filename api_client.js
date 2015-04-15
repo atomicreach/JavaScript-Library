@@ -209,8 +209,7 @@ function arClient()
         };
         for (var property in options)
         {
-            if (!property in ret)
-                ret[property] = options[property];
+        	ret[property] = options[property];
         }
         return ret;
     }
