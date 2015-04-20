@@ -708,7 +708,7 @@ function arClient()
                 clearInterval(tokenCheck);
                 return doRequest( { method: 'GET'
                         , action: consumerConfiguration.serviceProvider.host + consumerConfiguration.serviceProvider.getAuthors
-                        , parameters: buildOauthParameter([sourceId])
+                        , parameters: buildOauthParameter(sourceId)
                     }
                     , { consumerSecret: consumerConfiguration.consumerSecret
                         , tokenSecret   : oauth_token_secret
