@@ -38,6 +38,7 @@ function arClient()
         , getInsightsEngagament  : "/insights/engagement"
         , getInsightsMeasures    : "/insights/measures"
         , getAuthors			 : "/author"
+	, identifyCms: "/api/identify"
     }
     };
     var keys;
@@ -199,6 +200,24 @@ function arClient()
             }
         );
     }
+
+    client.identifyCms = function(url, callback) {
+        var tokenCheck = setInterval(function() {
+            if(tokenReady()) {
+                clearInterval(tokenCheck);
+                return doRequest( { method: 'GET'
+                        , action: consumerConfiguration.serviceProvider.host + consumerConfiguration.serviceProvider.getAuthors
+                        , parameters: buildOauthParameter(url)
+                    }
+                    , { consumerSecret: consumerConfiguration.consumerSecret
+                        , tokenSecret   : oauth_token_secret
+                    }
+                    , callback
+                );
+            }
+        }, interval);
+    };
+
 
     function buildOauthParameter(options)
     {
