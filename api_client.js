@@ -201,13 +201,13 @@ function arClient()
         );
     }
 
-    client.identifyCms = function(url, callback) {
+    client.identifyCms = function(cmsUrl, callback) {
         var tokenCheck = setInterval(function() {
             if(tokenReady()) {
                 clearInterval(tokenCheck);
                 return doRequest( { method: 'GET'
-                        , action: consumerConfiguration.serviceProvider.host + consumerConfiguration.serviceProvider.getAuthors
-                        , parameters: buildOauthParameter(url)
+                        , action: consumerConfiguration.serviceProvider.host + consumerConfiguration.serviceProvider.identifyCms
+                        , parameters: buildOauthParameter({'url':cmsUrl})
                     }
                     , { consumerSecret: consumerConfiguration.consumerSecret
                         , tokenSecret   : oauth_token_secret
