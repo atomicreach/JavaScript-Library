@@ -40,6 +40,7 @@ function arClient()
         , getAuthors			 : "/author"
         , identifyCms: "/api/identify"
         , getEmail: "/account/email"
+        , getAccountData: "/account/data"
 		
     }
     };
@@ -758,7 +759,24 @@ function arClient()
     
     };
 
+       client.getAccountData = function(callback) {
+        var tokenCheck = setInterval(function() {
+            if(tokenReady()) {
+                clearInterval(tokenCheck);
+                return doRequest( { method: 'GET'
+                        , action: consumerConfiguration.serviceProvider.host + consumerConfiguration.serviceProvider.getAccountData
+                        , parameters: buildOauthParameter()
+                    }
+                    , { consumerSecret: consumerConfiguration.consumerSecret
+                        , tokenSecret   : oauth_token_secret
+                    }
+                    , callback
+                );
+            }
+        }, interval);
     
+    };
+ 
     function tokenReady(){
         if(oauth_token!="BOOTING" && oauth_token!="") r = true
         else r = false;
